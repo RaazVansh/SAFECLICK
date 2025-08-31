@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFECLICK - Phishing Detection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .test-section {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .test-link {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .test-link:hover {
+            background: #ff5252;
+        }
+        .safe-link {
+            background: #4ecdc4;
+        }
+        .safe-link:hover {
+            background: #26d0ce;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔒 SAFECLICK - Phishing Detection Test</h1>
+    <p style="text-align: center;">Test the extension's ability to detect and block fake sites</p>
+
+    <div class="test-section">
+        <h2>🚨 High-Risk Fake Sites (Should be Blocked)</h2>
+        <p>These URLs should trigger high threat scores and be blocked:</p>
+        
+        <a href="http://paypal-secure-verify.com/login" class="test-link" target="_blank">
+            PayPal Secure Verify
+        </a>
+        
+        <a href="http://facebook-login-secure.net/account" class="test-link" target="_blank">
+            Facebook Login Secure
+        </a>
+        
+        <a href="http://google-account-verify.com/secure" class="test-link" target="_blank">
+            Google Account Verify
+        </a>
+        
+        <a href="http://amazon-payment-secure.co/billing" class="test-link" target="_blank">
+            Amazon Payment Secure
+        </a>
+        
+        <a href="http://microsoft-account-verify.net/login" class="test-link" target="_blank">
+            Microsoft Account Verify
+        </a>
+    </div>
+
+    <div class="test-section">
+        <h2>⚠️ Medium-Risk Suspicious Sites</h2>
+        <p>These URLs should trigger medium threat scores and show warnings:</p>
+        
+        <a href="http://suspicious-site.xyz/login" class="test-link" target="_blank">
+            Suspicious Site XYZ
+        </a>
+        
+        <a href="http://bit.ly/fake-login" class="test-link" target="_blank">
+            Shortened URL
+        </a>
+        
+        <a href="http://192.168.1.100/login" class="test-link" target="_blank">
+            IP Address Site
+        </a>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ Safe Sites (Should Pass)</h2>
+        <p>These URLs should be considered safe:</p>
+        
+        <a href="https://www.google.com" class="test-link safe-link" target="_blank">
+            Google (Legitimate)
+        </a>
+        
+        <a href="https://www.github.com" class="test-link safe-link" target="_blank">
+            GitHub (Legitimate)
+        </a>
+        
+        <a href="https://www.wikipedia.org" class="test-link safe-link" target="_blank">
+            Wikipedia (Legitimate)
+        </a>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Testing Instructions</h2>
+        <ol>
+            <li>Make sure SAFECLICK extension is installed and enabled</li>
+            <li>Click on the fake site links above</li>
+            <li>Check if the extension blocks them and shows the warning page</li>
+            <li>Check the browser console for threat score logs</li>
+            <li>Verify that safe sites are not blocked</li>
+        </ol>
+    </div>
+
+    <script>
+        // Add click tracking for testing
+        document.querySelectorAll('.test-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                console.log('Testing URL:', this.href);
+                // Let the link open normally for testing
+            });
+        });
+    </script>
+</body>
+</html>

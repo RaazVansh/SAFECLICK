@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFECLICK Settings - AI Phishing Detection</title>
+    <link rel="stylesheet" href="styles/settings.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="settings-container">
+        <!-- Header -->
+        <header class="settings-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>SAFECLICK Settings</h1>
+                </div>
+                <button class="btn btn-outline" onclick="window.close()">
+                    <i class="fas fa-times"></i>
+                    Close
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="settings-main">
+            <!-- Protection Settings -->
+            <section class="settings-section">
+                <h2>Protection Settings</h2>
+                <div class="setting-group">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>AI Detection</h3>
+                            <p>Enable advanced AI-powered phishing detection</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="aiDetection" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Auto-Block</h3>
+                            <p>Automatically block high-risk phishing sites</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="autoBlock" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Notifications</h3>
+                            <p>Show notifications for suspicious sites</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="notifications" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detection Sensitivity -->
+            <section class="settings-section">
+                <h2>Detection Sensitivity</h2>
+                <div class="setting-group">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Detection Level</h3>
+                            <p>Adjust how sensitive the phishing detection should be</p>
+                        </div>
+                        <select id="detectionLevel" class="setting-select">
+                            <option value="low">Low (Fewer false positives)</option>
+                            <option value="medium" selected>Medium (Balanced)</option>
+                            <option value="high">High (Maximum protection)</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reporting Settings -->
+            <section class="settings-section">
+                <h2>Reporting Settings</h2>
+                <div class="setting-group">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Auto-Report</h3>
+                            <p>Automatically report confirmed phishing sites</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="autoReport">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Daily Reports</h3>
+                            <p>Generate daily security reports</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="dailyReports" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Management -->
+            <section class="settings-section">
+                <h2>Data Management</h2>
+                <div class="setting-group">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Clear Site History</h3>
+                            <p>Delete all stored site history and analytics data</p>
+                        </div>
+                        <button class="btn btn-danger" onclick="clearSiteHistory()">
+                            <i class="fas fa-trash"></i>
+                            Clear Data
+                        </button>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Export Data</h3>
+                            <p>Download all your security data as a backup</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="exportData()">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Privacy Settings -->
+            <section class="settings-section">
+                <h2>Privacy Settings</h2>
+                <div class="setting-group">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Local Storage Only</h3>
+                            <p>Keep all data stored locally on your device</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="localStorage" checked disabled>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>Community Protection</h3>
+                            <p>Share domain names to help protect other users</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="communityProtection" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="settings-section">
+                <h2>About SAFECLICK</h2>
+                <div class="about-content">
+                    <div class="version-info">
+                        <h3>Version 1.0.0</h3>
+                        <p>AI-powered phishing detection for a safer browsing experience</p>
+                    </div>
+                    
+                    <div class="feature-list">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Advanced AI/ML phishing detection</li>
+                            <li>Real-time site analysis</li>
+                            <li>Interactive analytics dashboard</li>
+                            <li>Daily security reports</li>
+                            <li>Community-driven protection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="links">
+                        <a href="#" class="link-item">
+                            <i class="fas fa-book"></i>
+                            Documentation
+                        </a>
+                        <a href="#" class="link-item">
+                            <i class="fas fa-bug"></i>
+                            Report Bug
+                        </a>
+                        <a href="#" class="link-item">
+                            <i class="fas fa-heart"></i>
+                            Support Us
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="settings-footer">
+            <div class="footer-content">
+                <button class="btn btn-primary" onclick="saveSettings()">
+                    <i class="fas fa-save"></i>
+                    Save Settings
+                </button>
+                <button class="btn btn-outline" onclick="resetSettings()">
+                    <i class="fas fa-undo"></i>
+                    Reset to Default
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationMessage"></span>
+    </div>
+
+    <script src="scripts/settings.js"></script>
+</body>
+</html>

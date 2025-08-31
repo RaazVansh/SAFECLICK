@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFECLICK Dashboard - AI Phishing Detection</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="lib/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>SAFECLICK Dashboard</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" id="refreshBtn">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                    <button class="btn btn-primary" id="exportBtn">
+                        <i class="fas fa-download"></i>
+                        Export Report
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Overview Cards -->
+            <section class="overview-section">
+                <h2>Security Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-icon safe">
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="safeSites">0</h3>
+                            <p>Safe Sites Visited</p>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="suspiciousSites">0</h3>
+                            <p>Suspicious Sites</p>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon danger">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="phishingSites">0</h3>
+                            <p>Phishing Sites Blocked</p>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon info">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="totalSites">0</h3>
+                            <p>Total Sites Checked</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="chart-row">
+                    <!-- Threat Distribution Pie Chart -->
+                    <div class="chart-container">
+                        <h3>Threat Distribution</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="threatPieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Daily Activity Chart -->
+                    <div class="chart-container">
+                        <h3>Daily Activity</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="dailyActivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-row">
+                    <!-- Enhanced Threat Distribution Chart -->
+                    <div class="chart-container">
+                        <h3>Threat Distribution (Detailed)</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="threatDistributionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Security Trend Chart -->
+                    <div class="chart-container">
+                        <h3>Weekly Security Trend</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="weeklySecurityTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Trend Chart -->
+                <div class="chart-container full-width">
+                    <h3>Weekly Security Trend (Detailed)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="weeklyTrendChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Site History Section -->
+            <section class="history-section">
+                <div class="section-header">
+                    <h2>Recent Site History</h2>
+                    <div class="filter-controls">
+                        <select id="threatFilter">
+                            <option value="all">All Sites</option>
+                            <option value="safe">Safe Sites</option>
+                            <option value="suspicious">Suspicious Sites</option>
+                            <option value="phishing">Phishing Sites</option>
+                        </select>
+                        <input type="date" id="dateFilter">
+                    </div>
+                </div>
+                <div class="history-table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Site</th>
+                                <th>Threat Level</th>
+                                <th>Threat Score</th>
+                                <th>Date & Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Daily Report Section -->
+            <section class="report-section">
+                <div class="section-header">
+                    <h2>Today's Security Report</h2>
+                    <button class="btn btn-secondary" id="generateReportBtn">
+                        <i class="fas fa-file-alt"></i>
+                        Generate Report
+                    </button>
+                </div>
+                <div class="report-content" id="dailyReport">
+                    <div class="report-summary">
+                        <div class="summary-item">
+                            <i class="fas fa-calendar-day"></i>
+                            <div>
+                                <h4>Date</h4>
+                                <p id="reportDate"></p>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Total Time Online</h4>
+                                <p id="totalTimeOnline"></p>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Protection Status</h4>
+                                <p id="protectionStatus">Active</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="report-details">
+                        <div class="detail-card">
+                            <h4>Security Highlights</h4>
+                            <ul id="securityHighlights">
+                                <!-- Will be populated by JavaScript -->
+                            </ul>
+                        </div>
+                        <div class="detail-card">
+                            <h4>Recommendations</h4>
+                            <ul id="recommendations">
+                                <!-- Will be populated by JavaScript -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>&copy; 2024 SAFECLICK - AI Phishing Detection. Powered by Machine Learning.</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading dashboard data...</p>
+        </div>
+    </div>
+
+    <script src="scripts/dashboard-improved.js"></script>
+</body>
+</html>

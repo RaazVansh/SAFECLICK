@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFECLICK - Phishing Site Blocked</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .warning-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .warning-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+        }
+
+        .warning-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .warning-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .warning-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .blocked-url {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #ef4444;
+        }
+
+        .warning-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .warning-message h3 {
+            color: #dc2626;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-message ul {
+            color: #7f1d1d;
+            padding-left: 20px;
+        }
+
+        .warning-message li {
+            margin-bottom: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .safeclick-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .safeclick-info h4 {
+            color: #1e293b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .safeclick-info p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            .warning-container {
+                padding: 30px 20px;
+            }
+
+            .warning-title {
+                font-size: 24px;
+            }
+
+            .warning-subtitle {
+                font-size: 16px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .animation {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-container animation">
+        <div class="warning-icon">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        
+        <h1 class="warning-title">Phishing Site Blocked!</h1>
+        <p class="warning-subtitle">SAFECLICK has detected and blocked access to a potentially malicious website</p>
+        
+        <div class="blocked-url" id="blockedUrl">
+            Loading blocked URL...
+        </div>
+        
+        <div class="warning-message">
+            <h3>
+                <i class="fas fa-exclamation-triangle"></i>
+                Why was this site blocked?
+            </h3>
+            <ul>
+                <li>This site shows characteristics of a phishing attempt</li>
+                <li>It may be trying to steal your personal information</li>
+                <li>The site could be impersonating a legitimate service</li>
+                <li>It has been reported by other users as malicious</li>
+            </ul>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                Go Back
+            </button>
+            <button class="btn btn-primary" onclick="goToSafeSite()">
+                <i class="fas fa-home"></i>
+                Go to Safe Site
+            </button>
+            <button class="btn btn-outline" onclick="reportSite()">
+                <i class="fas fa-flag"></i>
+                Report Site
+            </button>
+        </div>
+        
+        <div class="safeclick-info">
+            <h4>
+                <i class="fas fa-shield-alt"></i>
+                SAFECLICK Protection Active
+            </h4>
+            <p>
+                Your AI-powered phishing detection is working to keep you safe. 
+                This site has been blocked based on advanced machine learning analysis 
+                and community reports.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Get the blocked URL from query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const originalUrl = urlParams.get('original');
+        
+        if (originalUrl) {
+            document.getElementById('blockedUrl').textContent = originalUrl;
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function goToSafeSite() {
+            window.location.href = 'https://www.google.com';
+        }
+
+        async function reportSite() {
+            if (!originalUrl) return;
+            
+            try {
+                const domain = new URL(originalUrl).hostname;
+                
+                // Send message to background script to report the site
+                if (chrome && chrome.runtime) {
+                    chrome.runtime.sendMessage({
+                        action: 'reportSite',
+                        domain: domain
+                    });
+                }
+                
+                // Show success message
+                alert('Site reported successfully! Thank you for helping keep the community safe.');
+            } catch (error) {
+                console.error('Error reporting site:', error);
+                alert('Error reporting site. Please try again.');
+            }
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
