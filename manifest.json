@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "SAFECLICK - AI Phishing Detection",
-  "version": "1.0.0",
-  "description": "Advanced phishing detection using AI and Machine Learning to protect users from malicious websites",
+  "name": "Phish Shield - AI Phishing Detection",
+  "version": "3.1.0",
+  "description": "Advanced phishing detection using deep learning neural networks",
   "permissions": [
     "activeTab",
     "storage",
@@ -25,16 +25,9 @@
       "run_at": "document_start"
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["data/*", "scripts/*", "lib/*"],
-      "matches": ["<all_urls>"]
-    }
-  ],
-
   "action": {
     "default_popup": "popup.html",
-    "default_title": "SAFECLICK - AI Phishing Detection",
+    "default_title": "Phish Shield - AI Phishing Detection",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
@@ -50,7 +43,14 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["dashboard.html", "styles/*", "scripts/*"],
+      "resources": [
+        "dashboard.html",
+        "warning.html",
+        "data/*",
+        "scripts/*",
+        "lib/*",
+        "styles/*"
+      ],
       "matches": ["<all_urls>"]
     }
   ]

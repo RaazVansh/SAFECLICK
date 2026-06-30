@@ -1,4 +1,4 @@
-// SAFECLICK - Improved Dashboard with ML Integration
+// Phish Shield - Improved Dashboard with ML Integration
 class SafeClickDashboardImproved {
     constructor() {
         this.siteHistory = [];
@@ -17,6 +17,7 @@ class SafeClickDashboardImproved {
             this.updateOverview();
             this.populateHistoryTable();
             this.generateDailyReport();
+            this.updateMLStats();
             this.hideLoading();
         } catch (error) {
             console.error('Dashboard initialization error:', error);
@@ -100,6 +101,51 @@ class SafeClickDashboardImproved {
         if (generateReportBtn) {
             generateReportBtn.addEventListener('click', () => this.generateDailyReport());
         }
+
+        const retrainBtn = document.getElementById('retrainModelBtn');
+        if (retrainBtn) {
+            retrainBtn.addEventListener('click', () => this.retrainModel());
+        }
+    }
+
+    updateMLStats() {
+        chrome.runtime.sendMessage({ action: 'getModelStats' }, (stats) => {
+            const el = document.getElementById('mlStats');
+            if (!el) return;
+            if (chrome.runtime.lastError || !stats) {
+                el.innerHTML = '<p class="ml-error">Could not load model stats</p>';
+                return;
+            }
+            el.innerHTML = `
+                <div class="ml-stat-card"><span class="ml-label">Algorithm</span><span class="ml-value">${stats.algorithm}</span></div>
+                <div class="ml-stat-card"><span class="ml-label">Architecture</span><span class="ml-value">${stats.architecture}</span></div>
+                <div class="ml-stat-card"><span class="ml-label">Training Accuracy</span><span class="ml-value">${stats.accuracy ? (stats.accuracy * 100).toFixed(1) + '%' : 'N/A'}</span></div>
+                <div class="ml-stat-card"><span class="ml-label">Validation Accuracy</span><span class="ml-value">${stats.valAccuracy ? (stats.valAccuracy * 100).toFixed(1) + '%' : 'N/A'}</span></div>
+                <div class="ml-stat-card"><span class="ml-label">Phishing Dataset</span><span class="ml-value">${stats.datasetSize} URLs</span></div>
+                <div class="ml-stat-card"><span class="ml-label">Training Epochs</span><span class="ml-value">${stats.epochs || 100}</span></div>
+                <div class="ml-stat-card"><span class="ml-label">Runtime</span><span class="ml-value">${stats.backend}</span></div>
+                <div class="ml-stat-card"><span class="ml-label">Model Version</span><span class="ml-value">${stats.version}</span></div>
+            `;
+        });
+    }
+
+    async retrainModel() {
+        const btn = document.getElementById('retrainModelBtn');
+        if (btn) { btn.disabled = true; btn.textContent = 'Training...'; }
+        this.showNotification('Training deep neural network...', 'info');
+
+        chrome.runtime.sendMessage({ action: 'trainModel' }, (result) => {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-robot"></i> Retrain Neural Network';
+            }
+            if (result?.success) {
+                this.showNotification('Neural network retrained successfully!', 'success');
+                this.updateMLStats();
+            } else {
+                this.showNotification('Training failed. Check console for details.', 'error');
+            }
+        });
     }
 
     async refreshData() {
@@ -112,6 +158,7 @@ class SafeClickDashboardImproved {
             this.updateCharts();
             this.populateHistoryTable();
             this.generateDailyReport();
+            this.updateMLStats();
         } catch (error) {
             console.error('Error refreshing data:', error);
             this.showError('Failed to refresh data');
@@ -628,7 +675,7 @@ class SafeClickDashboardImproved {
 
         if (recommendationsList.length === 0) {
             recommendationsList.push('Continue practicing safe browsing habits');
-            recommendationsList.push('Keep SAFECLICK enabled for protection');
+            recommendationsList.push('Keep Phish Shield enabled for protection');
         }
 
         recommendationsList.forEach(recommendation => {
@@ -646,7 +693,7 @@ class SafeClickDashboardImproved {
             
             const a = document.createElement('a');
             a.href = url;
-            a.download = `safeclick-report-${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `phish-shield-report-${new Date().toISOString().split('T')[0]}.csv`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

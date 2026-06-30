@@ -1,9 +1,9 @@
-# SAFECLICK Chrome Extension - Installation Guide
+# Phish Shield Chrome Extension - Installation Guide
 
 ## 🚀 Quick Installation
 
 ### Step 1: Download the Extension
-1. Download all the SAFECLICK files to a folder on your computer
+1. Download all the Phish Shield files to a folder on your computer
 2. Make sure the folder contains all the necessary files (manifest.json, popup.html, etc.)
 
 ### Step 2: Enable Developer Mode in Chrome
@@ -13,12 +13,12 @@
 
 ### Step 3: Load the Extension
 1. Click "Load unpacked" button
-2. Select the folder containing the SAFECLICK files
+2. Select the folder containing the Phish Shield files
 3. The extension should now appear in your extensions list
 
 ### Step 4: Pin the Extension
 1. Click the puzzle piece icon in Chrome toolbar
-2. Find "SAFECLICK - AI Phishing Detection"
+2. Find "Phish Shield - AI Phishing Detection"
 3. Click the pin icon to keep it visible in your toolbar
 
 ## 🔧 Troubleshooting
@@ -56,7 +56,7 @@
 Make sure your extension folder contains:
 
 ```
-SAFECLICK/
+Phish Shield/
 ├── manifest.json              # Extension configuration
 ├── popup.html                # Main popup interface
 ├── dashboard.html            # Analytics dashboard
@@ -98,7 +98,7 @@ SAFECLICK/
 
 ## 🔒 Security Features
 
-### What SAFECLICK Protects Against
+### What Phish Shield Protects Against
 - **Phishing Sites**: Fake websites that steal credentials
 - **Typosquatting**: Domains that look like legitimate sites
 - **Suspicious URLs**: URLs with suspicious patterns
@@ -172,7 +172,7 @@ SAFECLICK/
 1. Download the latest version
 2. Replace old files with new ones
 3. Go to chrome://extensions/
-4. Click the refresh icon on SAFECLICK
+4. Click the refresh icon on Phish Shield
 5. The extension will reload with updates
 
 ### Version History
@@ -183,6 +183,6 @@ SAFECLICK/
 
 ---
 
-**SAFECLICK - Your AI-powered shield against phishing attacks**
+**Phish Shield - Your AI-powered shield against phishing attacks**
 
 For more help, check the main README.md file or contact support.

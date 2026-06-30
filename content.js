@@ -1,4 +1,4 @@
-// SAFECLICK - Content Script
+// Phish Shield - Content Script
 class SafeClickContent {
     constructor() {
         this.currentUrl = window.location.href;
@@ -319,7 +319,7 @@ class SafeClickContent {
         indicator.innerHTML = `
             <div class="indicator-content">
                 <i class="fas fa-shield-alt"></i>
-                <span>SAFECLICK</span>
+                <span>Phish Shield</span>
             </div>
         `;
         

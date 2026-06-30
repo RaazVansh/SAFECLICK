@@ -1,4 +1,4 @@
-// SAFECLICK - AI Phishing Detection Popup Script
+// Phish Shield - AI Phishing Detection Popup Script
 class SafeClickPopup {
     constructor() {
         this.currentTab = null;
@@ -16,8 +16,8 @@ class SafeClickPopup {
         await this.getCurrentTab();
         this.setupEventListeners();
         this.analyzeCurrentSite();
-        this.updateUI();
         this.initChart();
+        this.updateUI();
     }
 
     async getCurrentTab() {
@@ -65,15 +65,16 @@ class SafeClickPopup {
         this.updateSiteStatus('analyzing', 'Analyzing site for threats...');
 
         try {
-            // AI-powered phishing detection
-            const threatScore = await this.detectPhishing(url);
-            
-            if (threatScore > 0.7) {
+            const result = await this.detectPhishing(url);
+            const threatScore = result.threatScore ?? result;
+
+            if (threatScore > 0.5) {
                 this.updateSiteStatus('danger', 'High risk phishing site detected!');
-                this.blockSite();
+                this.showMLDetails(result);
                 await this.recordThreat(url, 'high');
-            } else if (threatScore > 0.4) {
+            } else if (threatScore > 0.3) {
                 this.updateSiteStatus('warning', 'Suspicious site detected');
+                this.showMLDetails(result);
                 await this.recordThreat(url, 'medium');
             } else {
                 this.updateSiteStatus('safe', 'Site appears safe');
@@ -92,117 +93,27 @@ class SafeClickPopup {
     }
 
     async detectPhishing(url) {
-        // AI/ML-based phishing detection algorithm
-        const features = await this.extractFeatures(url);
-        
-        // Simple ML model (in real implementation, this would be a trained model)
-        let threatScore = 0;
-        
-        // URL-based features
-        if (features.hasSuspiciousKeywords) threatScore += 0.3;
-        if (features.hasIPAddress) threatScore += 0.4;
-        if (features.hasShortenedURL) threatScore += 0.2;
-        if (features.hasTyposquatting) threatScore += 0.5;
-        if (features.hasUnusualTLD) threatScore += 0.3;
-        
-        // Content-based features
-        if (features.hasLoginForms) threatScore += 0.2;
-        if (features.hasExternalScripts) threatScore += 0.1;
-        if (features.hasSSLIssues) threatScore += 0.4;
-        
-        // Domain reputation (simulated)
-        if (features.isKnownPhishing) threatScore += 0.8;
-        
-        return Math.min(threatScore, 1.0);
-    }
-
-    async extractFeatures(url) {
-        const features = {
-            hasSuspiciousKeywords: false,
-            hasIPAddress: false,
-            hasShortenedURL: false,
-            hasTyposquatting: false,
-            hasUnusualTLD: false,
-            hasLoginForms: false,
-            hasExternalScripts: false,
-            hasSSLIssues: false,
-            isKnownPhishing: false
-        };
-
-        try {
-            const urlObj = new URL(url);
-            const domain = urlObj.hostname;
-            
-            // Check for IP address
-            features.hasIPAddress = /^\d+\.\d+\.\d+\.\d+$/.test(domain);
-            
-            // Check for suspicious keywords
-            const suspiciousKeywords = ['login', 'signin', 'account', 'verify', 'secure', 'update'];
-            features.hasSuspiciousKeywords = suspiciousKeywords.some(keyword => 
-                url.toLowerCase().includes(keyword)
-            );
-            
-            // Check for unusual TLD
-            const unusualTLDs = ['.tk', '.ml', '.ga', '.cf', '.gq'];
-            features.hasUnusualTLD = unusualTLDs.some(tld => domain.endsWith(tld));
-            
-            // Check for shortened URLs
-            const shorteners = ['bit.ly', 'tinyurl.com', 'goo.gl', 't.co'];
-            features.hasShortenedURL = shorteners.some(shortener => domain.includes(shortener));
-            
-            // Check for typosquatting (simplified)
-            const commonDomains = ['google.com', 'facebook.com', 'amazon.com', 'paypal.com'];
-            features.hasTyposquatting = commonDomains.some(common => 
-                this.calculateSimilarity(domain, common) > 0.8
-            );
-            
-            // Check SSL
-            features.hasSSLIssues = urlObj.protocol === 'http:';
-            
-            // Simulate known phishing database check
-            features.isKnownPhishing = await this.checkPhishingDatabase(domain);
-            
-        } catch (error) {
-            console.error('Error extracting features:', error);
-        }
-
-        return features;
-    }
-
-    calculateSimilarity(str1, str2) {
-        // Simple Levenshtein distance-based similarity
-        const matrix = [];
-        for (let i = 0; i <= str2.length; i++) {
-            matrix[i] = [i];
-        }
-        for (let j = 0; j <= str1.length; j++) {
-            matrix[0][j] = j;
-        }
-        for (let i = 1; i <= str2.length; i++) {
-            for (let j = 1; j <= str1.length; j++) {
-                if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
-                    matrix[i][j] = matrix[i - 1][j - 1];
-                } else {
-                    matrix[i][j] = Math.min(
-                        matrix[i - 1][j - 1] + 1,
-                        matrix[i][j - 1] + 1,
-                        matrix[i - 1][j] + 1
-                    );
+        return new Promise((resolve) => {
+            chrome.runtime.sendMessage({ action: 'analyzeSite', url }, (response) => {
+                if (chrome.runtime.lastError || !response) {
+                    resolve({ threatScore: 0.5, threatLevel: 'unknown' });
+                    return;
                 }
-            }
-        }
-        const distance = matrix[str2.length][str1.length];
-        return 1 - (distance / Math.max(str1.length, str2.length));
+                resolve(response);
+            });
+        });
     }
 
-    async checkPhishingDatabase(domain) {
-        // Simulate checking against a phishing database
-        const knownPhishingDomains = [
-            'phishing-example.com',
-            'fake-login.net',
-            'malicious-site.org'
-        ];
-        return knownPhishingDomains.includes(domain);
+    showMLDetails(result) {
+        if (!result || typeof result !== 'object') return;
+        const confidence = result.confidence != null
+            ? ` (${Math.round(result.confidence * 100)}% confidence)`
+            : '';
+        const mlNote = result.inDataset ? ' — matched phishing dataset' : '';
+        const el = document.getElementById('statusText');
+        if (el && result.threatLevel) {
+            el.textContent += confidence + mlNote;
+        }
     }
 
     updateSiteStatus(status, message) {
@@ -299,8 +210,15 @@ class SafeClickPopup {
     }
 
     initChart() {
-        const ctx = document.getElementById('threatChart').getContext('2d');
-        
+        const canvas = document.getElementById('threatChart');
+        if (!canvas || typeof Chart === 'undefined') {
+            console.warn('Chart.js not available — skipping chart init');
+            return;
+        }
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
         this.threatChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -337,6 +255,8 @@ class SafeClickPopup {
     }
 
     async updateChart() {
+        if (!this.threatChart) return;
+
         try {
             const result = await chrome.storage.local.get(['siteHistory']);
             const siteHistory = result.siteHistory || [];

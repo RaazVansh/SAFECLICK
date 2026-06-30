@@ -1,8 +1,8 @@
-# SAFECLICK - AI Phishing Detection Chrome Extension
+# Phish Shield - AI Phishing Detection Chrome Extension
 
-![SAFECLICK Logo](icons/icon48.png)
+![Phish Shield Logo](icons/icon48.png)
 
-**SAFECLICK** is an advanced Chrome extension that uses Artificial Intelligence and Machine Learning to detect and block phishing websites in real-time. It provides comprehensive protection against malicious sites while offering detailed analytics and daily security reports.
+**Phish Shield** is an advanced Chrome extension that uses Artificial Intelligence and Machine Learning to detect and block phishing websites in real-time. It provides comprehensive protection against malicious sites while offering detailed analytics and daily security reports.
 
 ## 🛡️ Features
 
@@ -53,27 +53,27 @@
 
 4. **Pin the Extension**
    - Click the puzzle piece icon in Chrome toolbar
-   - Find SAFECLICK and click the pin icon
+   - Find Phish Shield and click the pin icon
    - The extension icon will now appear in your toolbar
 
 ### Method 2: Chrome Web Store (Coming Soon)
 
 1. Visit the Chrome Web Store
-2. Search for "SAFECLICK"
+2. Search for "Phish Shield"
 3. Click "Add to Chrome"
 4. Confirm the installation
 
 ## 📱 Usage
 
 ### Basic Protection
-1. **Automatic Detection**: SAFECLICK automatically analyzes every website you visit
+1. **Automatic Detection**: Phish Shield automatically analyzes every website you visit
 2. **Visual Indicators**: 
    - 🟢 Green shield: Site is safe
    - 🟡 Yellow triangle: Site is suspicious
    - 🔴 Red X: Site is blocked (phishing detected)
 
 ### Using the Popup
-1. **Click the SAFECLICK icon** in your Chrome toolbar
+1. **Click the Phish Shield icon** in your Chrome toolbar
 2. **View Current Status**: See real-time analysis of the current site
 3. **Check Statistics**: View sites checked, threats blocked, and today's visits
 4. **Access Dashboard**: Click "Dashboard" for detailed analytics
@@ -104,7 +104,7 @@
 
 ### Privacy
 - **Local Storage**: All data is stored locally on your device
-- **No Tracking**: SAFECLICK doesn't track your browsing history
+- **No Tracking**: Phish Shield doesn't track your browsing history
 - **Community Reports**: Only domain names are shared for community protection
 
 ## 🧠 AI/ML Features
@@ -248,4 +248,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for a safer internet**
 
-*SAFECLICK - Your AI-powered shield against phishing attacks*
+*Phish Shield - Your AI-powered shield against phishing attacks*

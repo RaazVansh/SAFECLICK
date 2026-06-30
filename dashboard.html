@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAFECLICK Dashboard - AI Phishing Detection</title>
+    <title>Phish Shield Dashboard - AI Phishing Detection</title>
     <link rel="stylesheet" href="styles/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="lib/chart.js"></script>
@@ -15,7 +15,7 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-shield-alt"></i>
-                    <h1>SAFECLICK Dashboard</h1>
+                    <h1>Phish Shield Dashboard</h1>
                 </div>
                 <div class="header-actions">
                     <button class="btn btn-outline" id="refreshBtn">
@@ -72,6 +72,19 @@
                             <p>Total Sites Checked</p>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- TensorFlow.js ML Model -->
+            <section class="ml-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-brain"></i> Deep Learning Model</h2>
+                    <button class="btn btn-outline" id="retrainModelBtn">
+                        <i class="fas fa-robot"></i> Retrain Neural Network
+                    </button>
+                </div>
+                <div id="mlStats" class="ml-stats-grid">
+                    <p class="ml-loading">Loading model stats...</p>
                 </div>
             </section>
 
@@ -207,7 +220,7 @@
 
         <!-- Footer -->
         <footer class="dashboard-footer">
-            <p>&copy; 2024 SAFECLICK - AI Phishing Detection. Powered by Machine Learning.</p>
+            <p>&copy; 2024 Phish Shield - AI Phishing Detection. Powered by Deep Learning.</p>
         </footer>
     </div>
 

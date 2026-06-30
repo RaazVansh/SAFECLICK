@@ -1,4 +1,4 @@
-// SAFECLICK - Settings Script
+// Phish Shield - Settings Script
 class SafeClickSettings {
     constructor() {
         this.settings = {
@@ -148,7 +148,7 @@ class SafeClickSettings {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `safeclick-data-${new Date().toISOString().split('T')[0]}.json`;
+            a.download = `phish-shield-data-${new Date().toISOString().split('T')[0]}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

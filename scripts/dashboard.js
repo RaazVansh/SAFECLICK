@@ -1,4 +1,4 @@
-// SAFECLICK - Improved Dashboard Script with ML Integration
+// Phish Shield - Improved Dashboard Script with ML Integration
 class SafeClickDashboard {
     constructor() {
         this.siteHistory = [];
@@ -237,16 +237,24 @@ class SafeClickDashboard {
             if (mlStatsEl) {
                 mlStatsEl.innerHTML = `
                     <div class="ml-stat">
+                        <span class="stat-label">Algorithm:</span>
+                        <span class="stat-value">${stats.algorithm}</span>
+                    </div>
+                    <div class="ml-stat">
                         <span class="stat-label">Model Version:</span>
                         <span class="stat-value">${stats.version}</span>
                     </div>
                     <div class="ml-stat">
-                        <span class="stat-label">Dataset Size:</span>
+                        <span class="stat-label">Training Accuracy:</span>
+                        <span class="stat-value">${stats.accuracy ? (stats.accuracy * 100).toFixed(1) + '%' : 'N/A'}</span>
+                    </div>
+                    <div class="ml-stat">
+                        <span class="stat-label">Phishing Dataset:</span>
                         <span class="stat-value">${stats.datasetSize} URLs</span>
                     </div>
                     <div class="ml-stat">
-                        <span class="stat-label">Cache Size:</span>
-                        <span class="stat-value">${stats.cacheSize} domains</span>
+                        <span class="stat-label">Features:</span>
+                        <span class="stat-value">${stats.features} dimensions</span>
                     </div>
                 `;
             }
@@ -813,7 +821,7 @@ class SafeClickDashboard {
 
         if (recommendationsList.length === 0) {
             recommendationsList.push('Continue practicing safe browsing habits');
-            recommendationsList.push('Keep SAFECLICK enabled for protection');
+            recommendationsList.push('Keep Phish Shield enabled for protection');
         }
 
         recommendationsList.forEach(recommendation => {
@@ -831,7 +839,7 @@ class SafeClickDashboard {
             
             const a = document.createElement('a');
             a.href = url;
-            a.download = `safeclick-report-${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `phish-shield-report-${new Date().toISOString().split('T')[0]}.csv`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
